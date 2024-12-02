@@ -16,7 +16,7 @@ class PageInfo (
     @Column(name = "page_id")
     val pageId: Long? = null,
     @Column(name = "user_id")
-    val userId: String,
+    var userId: String = "",
     @Embedded
-    val auditInfo: AuditInfo
+    var auditInfo: AuditInfo = AuditInfo(),
 )
