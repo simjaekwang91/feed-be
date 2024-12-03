@@ -24,8 +24,11 @@ class HighLightEntity(
     val pageInfo: PageEntity? = null,
 
 
-    @Column(name = "highlight_text")
-    val highLightText: String = "",
+    @Column(name = "content")
+    val content: String = "",
+
+    @Column(name = "color")
+    val color: String = "",
 
     @Embedded
     val auditInfo: AuditInfo? = null,

@@ -31,10 +31,6 @@ class PageEntity(
     @Embedded
     var auditInfo: AuditInfo = AuditInfo(),
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    val userInfo: UserEntity? = null,
-
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "pageInfo")
     val highLightEntity: List<HighLightEntity>? = null,
 
@@ -42,8 +38,11 @@ class PageEntity(
     @JoinColumn(name = "privacy_relationship_id")
     val privacyRelationship: PrivacyRelationshipEntity? = null,
 
-    @OneToMany
-    @JoinColumn(name = "privacy_user_mapping_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    val userInfo: UserEntity? = null,
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "pageInfo")
     val privacyUserMapping: List<PrivacyUserMappingEntity>? = null,
 ) {
     override fun equals(other: Any?): Boolean {

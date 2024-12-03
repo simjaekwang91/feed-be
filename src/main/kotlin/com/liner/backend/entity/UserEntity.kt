@@ -5,8 +5,6 @@ import jakarta.persistence.Column
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
@@ -25,10 +23,10 @@ class UserEntity(
     val name: String = "",
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "userInfo")
-    val pageList: List<PageEntity>? = null,
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "pageInfo")
     val privacyUserMappingEntity: List<PrivacyUserMappingEntity>? = null,
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "userInfo")
+    val pageEntity: List<PageEntity>? = null,
 
     @Embedded
     val auditInfo: AuditInfo? = null,

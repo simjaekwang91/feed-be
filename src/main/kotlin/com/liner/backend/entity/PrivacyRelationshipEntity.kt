@@ -12,11 +12,11 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "privarcy_info")
+@Table(name = "privacy_info")
 class PrivacyRelationshipEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "privarcy_id")
+    @Column(name = "privacy_id")
     val privacyRelationshipId: Long = 0L,
 
     @Enumerated(EnumType.STRING)
