@@ -10,15 +10,14 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PageInfoRepository: JpaRepository<PageEntity, Long> {
     @Query("""
-        SELECT p.page_id, p.url, p.title, p.privacy_relationship_id, p.user_id, ui.user_name, ui.name, p.created_at
+        SELECT p.page_id, p.url, p.title, p.privacy_relationship_id, p.user_id, ui.user_name, ui.name , p.created_at
         FROM page_info p
         JOIN user_info ui ON p.user_id = ui.user_id
         WHERE p.privacy_relationship_id = 1
-        AND p.user_id = :userId
         
         UNION ALL
         
-        SELECT p.page_id, p.url, p.title, p.privacy_relationship_id, p.user_id, ui.user_name, ui.name, p.created_at
+        SELECT p.page_id, p.url, p.title, p.privacy_relationship_id, p.user_id, ui.user_name, ui.name , p.created_at
         FROM page_info p
         JOIN user_info ui ON p.user_id = ui.user_id
         WHERE p.privacy_relationship_id = 2
@@ -31,7 +30,7 @@ interface PageInfoRepository: JpaRepository<PageEntity, Long> {
         
         UNION ALL
         
-        SELECT p.page_id, p.url, p.title, p.privacy_relationship_id, p.user_id, ui.user_name, ui.name, p.created_at
+        SELECT p.page_id, p.url, p.title, p.privacy_relationship_id, p.user_id, ui.user_name, ui.name , p.created_at
         FROM page_info p
         JOIN user_info ui ON p.user_id = ui.user_id
         WHERE p.privacy_relationship_id = 3

@@ -36,9 +36,9 @@ class PrivacyRelationshipEntity(
 }
 
 enum class PrivacyName(val code: Int) {
-    PUBLIC(0),   // 전체공개
-    MENTHIONED(1), // 지정된 사용자 공개
-    PRIVATE(2); // 비공개
+    PUBLIC(1),   // 전체공개
+    MENTHIONED(2), // 지정된 사용자 공개
+    PRIVATE(3); // 비공개
 
     companion object {
         fun fromCode(code: Int) = entries.first { it.code == code }
