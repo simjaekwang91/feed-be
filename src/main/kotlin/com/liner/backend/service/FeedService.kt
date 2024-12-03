@@ -13,26 +13,25 @@ class FeedService(
     private val highlightRepository: HighlightRepository
 ) {
     fun getFeedList(userId: String, pageNo: Long, pageSize: Long): List<PageListDto>? {
-        val pageInfoList = pageInfoRepository.getUserPageList(userId, pageSize, pageNo)
-        //검색된 페이지 정보의 id를 모아서 한번에 in절로 highlight 검색
-        val pageIdList = pageInfoList.map { (it as Array<*>)[0] as Long }
-        val highlights = highlightRepository.findTop3HighlightsForPageIdList(pageIdList)
-
-        return pageInfoList.map { row ->
-            val data = row as Array<*>
-            PageListDto(
-                url = data[1] as String?,
-                title = data[2] as String?,
-                userName = data[5] as String?,
-                highlightList = highlights.filter { (it as Array<*>)[4] == data[0] as Long }
-                    .map {
-                        val content = (it as Array<*>)[3] as String
-                        val color = it[2] as String
-                        HighlightDto(content, color)
-                    },
-                name = data[6] as String?,
-                createdAt = (data[7] as Timestamp).toInstant()
-            )
+         pageInfoRepository.getUserPageList(userId, pageSize, pageNo).also { pageInfoList ->
+            //검색된 페이지 정보의 id를 모아서 한번에 in절로 highlight 검색
+            val pageIdList = pageInfoList.map { it.pageId }
+            val highlights = highlightRepository.findTop3HighlightsForPageIdList(pageIdList)
+            return pageInfoList.map { pageInfo ->
+                PageListDto(
+                    url = pageInfo.url,
+                    title = pageInfo.title,
+                    userName = pageInfo.userInfo?.userName,
+                    highlightList = highlights.filter { it.pageInfo?.pageId == pageInfo.pageId }
+                        .map {
+                            val content = it.content
+                            val color = it.color
+                            HighlightDto(content, color)
+                        },
+                    name = pageInfo.userInfo?.name,
+                    createdAt = pageInfo.auditInfo.createdAt,
+                )
+            }
         }
     }
 }

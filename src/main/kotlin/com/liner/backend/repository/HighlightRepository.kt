@@ -11,10 +11,11 @@ interface HighlightRepository: JpaRepository<HighLightEntity, Long> {
     @Query(
         value = """
             SELECT h.highlight_id,
-                   h.created_at,
                    h.color,
                    h.content,
-                   h.page_id
+                   h.page_id,
+                   FROM_UNIXTIME(UNIX_TIMESTAMP(h.created_at)) AS created_at,
+               FROM_UNIXTIME(UNIX_TIMESTAMP(h.updated_at)) AS updated_at
             FROM highlight h
             JOIN (
                 SELECT h.highlight_id, h.page_id, h.created_at,
@@ -29,6 +30,6 @@ interface HighlightRepository: JpaRepository<HighLightEntity, Long> {
     )
     fun findTop3HighlightsForPageIdList(
         @Param("pageIdList") pageIdList: List<Long>
-    ): List<Any>
+    ): List<HighLightEntity>
 
 }
