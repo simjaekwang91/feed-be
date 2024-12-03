@@ -1,5 +1,6 @@
 package com.liner.backend.exception
 
+import com.liner.backend.model.response.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,5 +17,29 @@ class GlobalExceptionHandler {
     fun exceptionHandler(exception: Exception): ResponseEntity<*> {
         logger.error(exception.message, exception)
         return ResponseEntity(exception, HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    @ExceptionHandler
+    fun redisExceptionHandler(exception: RedisException): ResponseEntity<*> {
+        logger.error(exception.message, exception)
+        val errorResponse = ErrorResponse (
+            errorMessage = exception.errorType.errorMessage,
+            errorCode = exception.errorType.code,
+            errorType = exception.errorType.name
+        )
+
+        return ResponseEntity(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    @ExceptionHandler
+    fun businessRuleExceptionHandler(exception: BusinessRuleException): ResponseEntity<*> {
+        logger.error(exception.message, exception)
+        val errorResponse = ErrorResponse (
+            errorMessage = exception.errorType.errorMessage,
+            errorCode = exception.errorType.code,
+            errorType = exception.errorType.name
+        )
+
+        return ResponseEntity(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 }

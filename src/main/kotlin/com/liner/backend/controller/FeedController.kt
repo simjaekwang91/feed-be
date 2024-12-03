@@ -1,6 +1,7 @@
 package com.liner.backend.controller
 
-import com.liner.backend.dto.response.FeedResponse
+import com.liner.backend.model.response.FeedResponse
+import com.liner.backend.model.response.PageListDto
 import com.liner.backend.service.FeedService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,5 +16,5 @@ class FeedController(private val feedService: FeedService) {
     @GetMapping("/{id}")
     fun getFeed(
         @PathVariable(value = "id") page: Long,
-    ):FeedResponse<String> = FeedResponse(data = feedService.getFeedList())
+    ):FeedResponse<PageListDto> = FeedResponse(data = feedService.getFeedList())
 }

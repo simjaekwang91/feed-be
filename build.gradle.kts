@@ -5,6 +5,7 @@ plugins {
     val kotlinVersion = "1.9.25"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
+    id("org.jetbrains.kotlin.kapt") version kotlinVersion
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
 }
@@ -23,6 +24,8 @@ repositories {
 }
 
 dependencies {
+    kapt("com.querydsl:querydsl-apt")
+    implementation("com.querydsl:querydsl-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

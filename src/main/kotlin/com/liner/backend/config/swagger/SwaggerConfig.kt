@@ -1,4 +1,4 @@
-package com.liner.backend.config
+package com.liner.backend.config.swagger
 
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info

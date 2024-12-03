@@ -3,10 +3,12 @@ package com.liner.backend.client
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.liner.backend.exception.RedisErrorType
+import com.liner.backend.exception.RedisException
 import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 
-@Repository
+@Component
 class RedisClient(private val redisTemplate: RedisTemplate<String, String>) {
     private val mapper: ObjectMapper = jacksonObjectMapper()
             .registerModule(JavaTimeModule())
@@ -22,11 +24,10 @@ class RedisClient(private val redisTemplate: RedisTemplate<String, String>) {
         validateKey(key)
         return redisTemplate.opsForValue().get(key)?.let {
             mapper.readValue(it, clazz)
-
         }
     }
 
     private fun validateKey(key: String) {
-        require(key.isNotBlank()) { "Redis key 는 비어있을수 없습니다." }
+        require(key.isNotBlank()) { throw RedisException(RedisErrorType.KEY_IS_NOT_EMPTY) }
     }
 }

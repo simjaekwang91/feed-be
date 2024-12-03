@@ -23,6 +23,10 @@ class HighLightEntity(
     @JoinColumn(name = "page_id")
     val pageInfo: PageEntity? = null,
 
+
+    @Column(name = "highlight_text")
+    val highLightText: String = "",
+
     @Embedded
     val auditInfo: AuditInfo? = null,
 ) {

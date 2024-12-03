@@ -1,4 +1,4 @@
-package com.liner.backend.config
+package com.liner.backend.config.redis
 
 import jakarta.annotation.PostConstruct
 import jakarta.annotation.PreDestroy
