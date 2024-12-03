@@ -14,7 +14,7 @@ Spring Boot 3.3.2 으로 구성하였으며 Kotlin 으로 작성되었습니다.
 
 # 상세 내용
 ### DB
-![img.png](img.png)
+![linerDB.png](linerDB.png)
 #### user_info
 인덱스 - pk
 - user_id(PK) 
