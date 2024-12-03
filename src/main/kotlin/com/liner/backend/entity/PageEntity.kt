@@ -22,6 +22,12 @@ class PageEntity(
     @Column(name = "page_id")
     val pageId: Long = 0L,
 
+    @Column(name = "url")
+    val url: String = "",
+
+    @Column(name = "title")
+    val title: String = "",
+
     @Embedded
     var auditInfo: AuditInfo = AuditInfo(),
 
@@ -35,6 +41,10 @@ class PageEntity(
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "privacy_relationship_id")
     val privacyRelationship: PrivacyRelationshipEntity? = null,
+
+    @OneToMany
+    @JoinColumn(name = "privacy_user_mapping_id")
+    val privacyUserMapping: List<PrivacyUserMappingEntity>? = null,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

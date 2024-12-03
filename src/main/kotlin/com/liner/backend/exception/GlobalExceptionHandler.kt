@@ -20,7 +20,7 @@ class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    fun redisExceptionHandler(exception: RedisException): ResponseEntity<*> {
+    fun redisExceptionHandler(exception: RedisException): ResponseEntity<ErrorResponse> {
         logger.error(exception.message, exception)
         val errorResponse = ErrorResponse (
             errorMessage = exception.errorType.errorMessage,
@@ -32,7 +32,7 @@ class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    fun businessRuleExceptionHandler(exception: BusinessRuleException): ResponseEntity<*> {
+    fun businessRuleExceptionHandler(exception: BusinessRuleException): ResponseEntity<ErrorResponse> {
         logger.error(exception.message, exception)
         val errorResponse = ErrorResponse (
             errorMessage = exception.errorType.errorMessage,

@@ -15,9 +15,8 @@ import jakarta.persistence.Table
 @Table(name = "user_info")
 class UserEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    val userId: Long = 0L,
+    val userId: String = "",
 
     @Column(name = "user_name")
     val userName: String = "",
@@ -27,6 +26,9 @@ class UserEntity(
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "userInfo")
     val pageList: List<PageEntity>? = null,
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "pageInfo")
+    val privacyUserMappingEntity: List<PrivacyUserMappingEntity>? = null,
 
     @Embedded
     val auditInfo: AuditInfo? = null,
