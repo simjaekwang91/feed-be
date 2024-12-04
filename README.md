@@ -24,7 +24,7 @@ Spring Boot 3.3.2 으로 구성하였으며 Kotlin 으로 작성되었습니다.
 - updated_at
 
 #### page_info
-인덱스 - pk, 복합인덱스(privacy_relationship_id, created_at desc) 
+인덱스 - pk, 복합인덱스(privacy_relationship_id, created_at desc), user_id
 생성일 기준 내림차순 정렬기준 때문에 인덱스 생성
 - page_id(pk) 자동증가 
 - url
